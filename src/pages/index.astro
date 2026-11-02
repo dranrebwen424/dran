@@ -1,0 +1,87 @@
+---
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import GraphicDesign from '../components/GraphicDesign.astro';
+import SubliFolio from '../components/SubliFolio.astro';
+import LogoFolio from '../components/LogoFolio.astro';
+import WebProjects from '../components/WebProjects.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import BackgroundGrid from '../components/BackgroundGrid.astro';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The portfolio of Dranreb Wen Balangbang." />
+    <title>Dranreb Wen Balangbang | Portfolio</title>
+    <link rel="preload" href="/fonts/Cold%20Warm.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="/fonts/Gilroy-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/Gilroy-Medium.ttf" as="font" type="font/ttf" crossorigin />
+    <script is:inline>
+      if (performance.getEntriesByType('navigation')[0]?.type === 'reload') {
+        const restoration = history.scrollRestoration;
+        history.scrollRestoration = 'manual';
+        if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+        scrollTo(0, 0);
+        addEventListener('pageshow', () => {
+          scrollTo(0, 0);
+          requestAnimationFrame(() => {
+            scrollTo(0, 0);
+            history.scrollRestoration = restoration;
+          });
+        }, { once: true });
+      }
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.dataset.headlineEntrance = 'pending';
+        document.documentElement.dataset.pageEntrance = 'pending';
+        document.documentElement.dataset.aboutEntrance = 'pending';
+        // A stalled script/font request must still leave a readable headline.
+        window.setTimeout(() => {
+          if (document.documentElement.dataset.headlineEntrance === 'pending') {
+            document.documentElement.dataset.headlineEntrance = 'done';
+          }
+          if (document.documentElement.dataset.aboutEntranceReady !== 'true') {
+            document.documentElement.dataset.aboutEntrance = 'done';
+          }
+          if (document.documentElement.dataset.pageEntranceReady !== 'true') {
+            document.documentElement.dataset.pageEntrance = 'done';
+          }
+        }, 8000);
+      }
+    </script>
+  </head>
+  <body>
+    <BackgroundGrid />
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content" tabindex="-1">
+      <div id="hero" class="intro-stack" tabindex="-1">
+        <Hero />
+        <About />
+      </div>
+      <GraphicDesign />
+      <SubliFolio />
+      <LogoFolio />
+      <WebProjects />
+      <Contact />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/gallery-reveal';
+      import('../scripts/hero').catch(() => {
+        document.documentElement.dataset.headlineEntrance = 'done';
+        document.documentElement.dataset.pageEntrance = 'done';
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .intro-stack { position: relative; isolation: isolate; scroll-margin-top: var(--header-height); }
+  .intro-stack:focus { outline: none; }
+</style>

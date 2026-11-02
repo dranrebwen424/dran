@@ -1,0 +1,17 @@
+# About smiley
+
+The current artwork matches the user's block-smiley reference: a stepped outline, tall rectangular eyes and a stepped smile. The shapes use a 14 × 14 logical grid with a fixed 28 × 28 runtime canvas and pixelated CSS scaling. The SVG fallback uses the same outline/eye/mouth cells. Tracking, blink and giggle controls remain; rendering resolution stays fixed across viewport sizes and device pixel ratios. The face sits after “Designed with purpose. Built for people.” and pops in after that heading finishes revealing.
+
+The motion retains the earlier `context/Design/smiley.mp4` idle/blink and squeezed-eye giggle references, translated into block geometry. The border stays steady during idle; all giggle motion stays inside the fixed canvas.
+
+Rebuild with `npm run rive:smiley` (Python standard library and installed Rive CLI). `generate.py` writes editable `scene.rml`, compiles `build/about-smiley.riv`, and copies the runtime file and matching SVG fallback to `public/animations/`. The browser needs no Rive account or external asset URLs. Build outputs in `build/` are ignored. No site dependency was added.
+
+Artboard: `Smiley`, 100 × 100. State machine: `Smiley Controller`. View model: `SmileyControls`; numbers `eyesX`, `eyesY`, `mouthX`, `mouthY`, `expression` (0 idle, 1 giggle, 2 blink). Native Rive timelines own artwork and deformation; the browser only changes these controls and playback. The old one-eye wink is replaced.
+
+Idle retains 2.5 units of gentle feature movement over seven seconds. Blinks are separate 20-frame timelines, scheduled 2.4–6 seconds apart. The 96-frame (1.6s) giggle closes both eyes into stepped chevrons, moves them farther apart and shrinks the stepped mouth. Three diminishing bounces peak at 2, 1.6 and 1 artboard units, with alternating rotation no greater than .04 radians. The final 24 frames restore the normal eyes/mouth; state transitions blend over 100ms. The controller ends the reaction after 1.75s. All geometry stays inside the 100-unit canvas; no DOM transform or layout change is used.
+
+On fine pointers the eyes and mouth follow the cursor together up to ±5/±4 units. Coarse/no-hover devices, and touch input on hybrid devices, instead look in different directions or return to center. Each destination is different from the preceding one, with 1–3.2s holds and 0.45–0.75s eased shifts. A tap/click cancels look/blink schedules and smoothly centers the gaze before the giggle; idle and tracking resume afterward. A second activation during a giggle is ignored. All schedules/tweens are cancelled on hiding or teardown and freshly scheduled on resume, so hidden time does not consume a reaction.
+
+`AboutSmiley.astro` uses the responsive face size set by About, with a native giggle button. The adjacent pause/play control was removed at user request. Taps, clicks, Enter and Space giggle. Loading, blocked assets, no JavaScript and reduced motion use the matching SVG. Player loading starts near visibility; hidden/offscreen playback stops, preference changes show static artwork, and pagehide disposes listeners, tweens, timers, observers and Rive resources. BFCache creates one fresh controller.
+
+`tests/figma-refresh.spec.ts` checks actual 28px canvas output at DPR 1/2, visible pixel content, giggle-driven pixel changes, stable resolution after resizing, and exact fallback pixel probes for the stepped outline, tall eyes and smile. About reveal timing, reduced motion and no-script access are included in the same suite. Physical-device/Safari validation remains outstanding.

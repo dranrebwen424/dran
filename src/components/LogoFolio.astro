@@ -1,0 +1,64 @@
+---
+import ImageViewer from './ImageViewer.astro';
+
+const designs = [
+  { file: 'kasama.png', title: 'Kasama logo identity', alt: 'Kasama brand board showing a gold puzzle-piece sun logo, its symbolism and a printed identity mockup', width: 3368, height: 2382 },
+  { file: 'wenn branding.jpg', title: 'Wenn brand identity', alt: 'Wenn brand board with a blue gradient W monogram, wordmark, app icons, color palette, typography and mockups', width: 3300, height: 2550 },
+];
+---
+
+<section id="logo" class="logo-folio" aria-labelledby="logo-title" tabindex="-1">
+  <div class="logo-inner">
+    <header class="logo-heading" data-project-heading>
+      <div class="logo-copy">
+
+        <h2 id="logo-title" class="animated-headline" aria-label="Logo Folio"><span class="logo-title-line">Logo</span> <span class="logo-title-line logo-title-inverse">Folio</span></h2>
+        <p id="logo-title-hint" class="sr-only" hidden>Move across the letters to make them swing. Tap a letter, or focus the heading and press Enter, to play the reaction.</p>
+        <p class="logo-description sr-only" data-project-description="swipe">Distinctive logos and thoughtful brand identities, crafted to make a lasting impression.</p>
+      </div>
+    </header>
+    <div class="logo-gallery">
+      {designs.map((design, index) => (
+        <a class="logo-card" href={`/logo/${encodeURIComponent(design.file)}`} data-title={design.title} data-viewer-src={`/logo/previews/design-${index + 1}-1200.webp`} aria-label={`View ${design.title}`}>
+          <img src={`/logo/previews/design-${index + 1}-600.webp`} srcset={`/logo/previews/design-${index + 1}-600.webp 600w, /logo/previews/design-${index + 1}-1200.webp 1200w`} sizes="(max-width: 767px) calc(100vw - 40px), (min-width: 1325px) 623px, 48vw" width={design.width} height={design.height} alt={design.alt} loading="lazy" decoding="async" />
+          <span class="logo-view" aria-hidden="true">View design ↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+  <ImageViewer />
+</section>
+
+<script>
+  import '../scripts/logo-folio';
+</script>
+
+<style>
+  .logo-folio { overflow: clip; padding: 32px 0 96px; scroll-margin-top: 100px; }
+  .logo-folio:focus { outline: none; }
+  .logo-inner { max-width: none; margin-inline: auto; }
+  .logo-heading { position: relative; margin: 0 24px 64px; text-align: center; }
+  .logo-heading h2 { margin: 0; font: 400 clamp(36px, 4.5vw, 64px)/1.15 var(--font-display); }
+  .logo-title-line { display: inline; }
+  .logo-title-inverse { --color-text: #595959; color: var(--color-text); }
+  .logo-heading h2:global(.has-letter-reactions) :global(.headline-window) { overflow: visible; }
+  .logo-gallery { display: grid; gap: 6px; }
+  .logo-card { position: relative; display: block; min-width: 0; overflow: hidden; color: #fff; transition: translate 420ms var(--ease-out); }
+  .logo-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .logo-view { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .4); opacity: 0; transition: opacity 200ms ease; font-size: 16px; }
+  .logo-card:is(:hover, :focus-visible) .logo-view { opacity: 1; }
+  .logo-card:focus-visible { outline-offset: -4px; }
+  [hidden] { display: none !important; }
+  .logo-gallery { grid-template-columns: 1fr 1fr; padding-inline: 24px; }
+  .logo-card { aspect-ratio: 1.3; }
+  .logo-card:first-child { order: 2; }
+  @media (max-width: 767px) {
+    .logo-folio { padding: 0 0 100px; }
+    .logo-heading { margin-bottom: 44px; }
+    .logo-heading h2 { font-size: clamp(24px, 6.7vw, 36px); }
+    .logo-gallery { gap: 3px; }
+    .logo-gallery { padding-inline: 8px; }
+  }
+  @media (hover: hover) and (pointer: fine) { .logo-card:hover { translate: 0 -6px; } }
+  @media (prefers-reduced-motion: reduce) { .logo-card, .logo-card:hover { translate: none; transition: none; } .logo-view { transition: none; } }
+</style>

@@ -1,0 +1,86 @@
+---
+import * as THREE from 'three';
+import { createMotif } from '../scripts/shape-geometry';
+
+const shapes = [
+  ['crown', 'Rotate the portrait crown'],
+  ['cube', 'Rotate the portrait cube'],
+  ['starburst', 'Rotate the portrait starburst'],
+].map(([shape, label], index) => {
+  const geometries: THREE.BufferGeometry[] = [];
+  const material = new THREE.MeshBasicMaterial();
+  const object = createMotif(shape, material, geometries);
+  const phase = index * 2.399;
+  object.rotation.set(
+    (shape === 'cube' ? .4 : shape === 'crown' ? .55 : .12) + Math.sin(phase) * .18 * .9,
+    (shape === 'cube' ? .6 : .2) + Math.sin(phase * 1.4) * .27 * .9,
+    (shape === 'crown' ? -.22 : 0) + Math.sin(phase) * .21 * .9,
+  );
+  object.updateMatrixWorld(true);
+  const paths = object.children.map(child => {
+    const mesh = child as THREE.Mesh<THREE.TubeGeometry | THREE.TorusGeometry>;
+    const geometry = mesh.geometry;
+    const points = geometry instanceof THREE.TubeGeometry
+      ? (geometry.parameters.path as THREE.CurvePath<THREE.Vector3>).curves.flatMap(curve => [curve.getPoint(0), curve.getPoint(1)])
+      : Array.from({ length: 65 }, (_, step) => new THREE.Vector3(Math.cos(step / 64 * Math.PI * 2) * geometry.parameters.radius, Math.sin(step / 64 * Math.PI * 2) * geometry.parameters.radius, 0));
+    const width = geometry instanceof THREE.TubeGeometry ? geometry.parameters.radius : geometry.parameters.tube;
+    const d = points.map((point, index) => {
+      point.applyMatrix4(mesh.matrixWorld);
+      return `${index ? 'L' : 'M'}${(point.x * 100).toFixed(2)} ${(-point.y * 100).toFixed(2)}`;
+    }).join(' ');
+    return { d, width: width * 200 };
+  });
+  geometries.forEach(geometry => geometry.dispose());
+  material.dispose();
+  return { shape, label, paths };
+});
+---
+
+<div class="portrait-shapes" data-state="loading" role="group" aria-label="Interactive portrait shapes">
+  <p id="portrait-shape-instructions" class="sr-only">Drag to turn and gently move a shape. Click, tap, Enter or Space spins it. On touch, swipe vertically to scroll.</p>
+  <canvas class="portrait-canvas" aria-hidden="true"></canvas>
+  {shapes.map(({ shape, label, paths }) => (
+    <button class="portrait-shape" data-shape={shape} type="button" aria-label={label} aria-describedby="portrait-shape-instructions" disabled>
+      <svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="2.8" aria-hidden="true" focusable="false">
+        {paths.map(({ d, width }) => <path d={d} stroke-width={width} stroke-linecap="round" stroke-linejoin="round" />)}
+      </svg>
+    </button>
+  ))}
+</div>
+
+<script>
+  import { startShapes } from '../scripts/hero-shapes';
+
+  const root = document.querySelector<HTMLElement>('.portrait-shapes')!;
+  startShapes(root);
+  window.addEventListener('pageshow', event => { if (event.persisted) startShapes(root); });
+</script>
+
+<style>
+  .portrait-shapes { --portrait-bleed: 88px; --shape-scale: .75; --shape-float: .4; --shape-scroll: 0; position: absolute; inset: 0; z-index: 2; pointer-events: none; translate: 0 var(--shapes-parallax, 0px); }
+  .portrait-canvas { position: absolute; inset: calc(-1 * var(--portrait-bleed)); width: calc(100% + 2 * var(--portrait-bleed)); height: calc(100% + 2 * var(--portrait-bleed)); opacity: 0; pointer-events: none; }
+  .portrait-shape {
+    --shape-depth: 0; --shape-opacity: 1; --shape-color: var(--color-text);
+    position: absolute; left: var(--shape-x); top: var(--shape-y); width: var(--shape-size); height: var(--shape-size);
+    min-width: 44px; min-height: 44px; transform: translate(-50%, -50%);
+    padding: 0; border: 0; background: transparent; color: var(--shape-color); cursor: grab;
+    pointer-events: auto; touch-action: pan-y pinch-zoom; user-select: none;
+  }
+  .portrait-shape svg { width: 100%; height: 100%; overflow: visible; pointer-events: none; transform: scale(var(--shape-entrance-scale, 1)); }
+  .portrait-shape[data-grabbing] { cursor: grabbing; }
+  .portrait-shape:disabled { cursor: default; }
+  [data-state='ready'] .portrait-canvas { opacity: 1; }
+  [data-state='ready'] .portrait-shape svg { opacity: 0; }
+  [data-shape='crown'] { --shape-x: 14%; --shape-y: 8%; --shape-size: 56px; --shape-color: var(--color-text-secondary); }
+  [data-shape='cube'] { --shape-x: 110%; --shape-y: 35%; --shape-size: 52px; --shape-color: var(--color-text-secondary); }
+  [data-shape='starburst'] { --shape-x: 76%; --shape-y: 105%; --shape-size: 64px; --shape-color: var(--color-text-secondary); }
+  @media (min-width: 768px) and (max-width: 1099px) {
+    [data-shape='starburst'] { --shape-y: 118%; --shape-size: 52px; }
+  }
+  @media (max-width: 767px) {
+    .portrait-shapes { --portrait-bleed: 48px; }
+    [data-shape='crown'] { --shape-x: 6%; --shape-y: 12%; --shape-size: 40px; }
+    [data-shape='cube'] { --shape-x: 6%; --shape-y: 60%; --shape-size: 40px; }
+    [data-shape='starburst'] { --shape-x: 90%; --shape-y: 5%; --shape-size: 42px; }
+  }
+</style>

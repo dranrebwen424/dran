@@ -1,0 +1,43 @@
+:root {
+  --font-display: 'Cold Warm', 'Gilroy', sans-serif;
+  --font-body: 'Gilroy', sans-serif;
+  --color-background: #ffffff;
+  --color-text: #111111;
+  --color-text-secondary: #595959;
+  --color-on-inverse: #ffffff;
+  --color-inverse: #000000;
+  --color-cta-hover: #242424;
+  --color-border: #e4e5e9;
+  --color-surface-muted: #f6f6f8;
+  --color-contact-particle: #c4cce8;
+  --color-contact-particle-accent: #93a8ff;
+  --shadow-card: 0 16px 48px rgb(17 17 17 / .07);
+  --radius-card: 0px;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --color-motion-backdrop: rgb(0 0 0 / 0.72);
+  --color-motion-hover: rgb(0 0 0 / 0.4);
+  --color-motion-caption: rgb(0 0 0 / 0.64);
+  --color-lens-red: rgb(245 80 52 / .6);
+  --color-lens-cyan: rgb(0 184 230 / .6);
+  --grid-opacity: 0.065;
+  --grid-ripple-opacity: 0.32;
+  --grid-active-opacity: 0.14;
+  --color-grid-hover: rgb(0 0 0 / 0.02);
+  --color-glass: rgb(255 255 255 / 0.88);
+  --color-glass-border: rgb(0 0 0 / 0.1);
+  --color-pill: rgb(245 245 245 / 0.65);
+  --color-selection: rgb(255 255 255 / 0.98);
+  --color-selection-highlight: rgb(255 255 255 / 0.95);
+  --color-selection-edge: rgb(17 17 17 / 0.08);
+  --shadow-selection: inset 0 1px 0 var(--color-selection-highlight), 0 2px 6px rgb(0 0 0 / 0.04);
+  --shadow-menu: 0 12px 32px rgb(0 0 0 / 0.06);
+  --content-max: 1440px;
+  --page-gutter: clamp(20px, 2.5vw, 40px);
+  --header-height: 76px;
+  --radius-pill: 0px;
+  --glass-blur: 16px;
+}
+
+@media (max-width: 767px) {
+  :root { --radius-card: 0px; }
+}

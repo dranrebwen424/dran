@@ -1,0 +1,90 @@
+---
+import ImageViewer from './ImageViewer.astro';
+
+const designs = [
+  { file: 'Black Motorcycle T-Shirt Front and Back.png', title: 'Talisay Klasiko motorcycle shirt', alt: 'Front and back of a black motorcycle shirt with white Talisay Klasiko artwork and patterned trim', width: 1254, height: 1254 },
+  { file: 'tshirt branding.jpg', title: 'Kasama shirt branding', alt: 'Front and back of a turquoise Kasama shirt with contour lines and gold lettering', width: 3300, height: 2550 },
+  { file: 'Mockup.jpg', title: 'Aquaguard shirt mockup', alt: 'Front and back of a blue and white Aquaguard shirt with wave graphics', width: 5000, height: 3750 },
+];
+---
+
+<section id="sublimation" class="subli-folio" aria-labelledby="subli-title" tabindex="-1">
+  <div class="subli-inner">
+    <header class="subli-heading" data-project-heading>
+      <div class="subli-copy">
+
+        <h2 id="subli-title" class="animated-headline" aria-label="Subli Folio"><span class="subli-title-line">Subli</span> <span class="subli-title-line subli-title-inverse">Folio</span></h2>
+        <p id="subli-title-hint" class="sr-only" hidden>Move across the letters to make them swing. Tap a letter, or focus the heading and press Enter, to play the reaction.</p>
+        <p class="subli-description sr-only" data-project-description="swipe">Custom sublimation apparel, bringing bold graphics and distinctive identities to life.</p>
+      </div>
+    </header>
+    <p id="subli-carousel-hint" class="sr-only">Drag horizontally to browse designs. Focus a design and press Enter to view it.</p>
+    <div class="subli-carousel" role="region" aria-roledescription="carousel" aria-label="Sublimation projects" aria-describedby="subli-carousel-hint">
+      <div class="subli-gallery">
+        <div class="subli-track">
+          {[false, true].map(copy => (
+            <div class="subli-group" aria-hidden={copy ? 'true' : undefined}>
+              {designs.map((design, index) => (
+                <a class="subli-card" href={`/sublimation/${encodeURIComponent(design.file)}`} data-title={design.title} data-viewer-src={`/sublimation/previews/design-${index + 1}-1200.webp`} aria-label={`View ${design.title}`} tabindex={copy ? -1 : undefined} draggable="false">
+                  <img src={`/sublimation/previews/design-${index + 1}-600.webp`} srcset={`/sublimation/previews/design-${index + 1}-600.webp 600w, /sublimation/previews/design-${index + 1}-1200.webp 1200w`} sizes="(max-width: 767px) 64vw, 42vw" width={design.width} height={design.height} alt={copy ? '' : design.alt} loading="lazy" decoding="async" draggable="false" />
+                  <span class="subli-view" aria-hidden="true">View design ↗</span>
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+  <ImageViewer />
+</section>
+
+<script>
+  import '../scripts/subli-folio';
+</script>
+
+<style>
+  .subli-folio { overflow: clip; padding: 128px 0 96px; scroll-margin-top: 100px; }
+  .subli-folio:focus { outline: none; }
+  .subli-inner { width: 100%; }
+  .subli-heading { position: relative; margin: 0 24px 64px; text-align: center; }
+  .subli-heading h2 { margin: 0; font: 400 clamp(36px, 4.5vw, 64px)/1.15 var(--font-display); }
+  .subli-title-line { display: inline; }
+  .subli-title-inverse { --color-text: #595959; color: var(--color-text); }
+  .subli-heading h2:global(.has-letter-reactions) :global(.headline-window) { overflow: visible; }
+  .subli-gallery { overflow-x: auto; }
+  .subli-track { display: flex; width: max-content; }
+  .subli-group { display: flex; gap: 6px; padding-right: 6px; }
+  .subli-group[aria-hidden] { display: none; }
+  .subli-card { position: relative; display: block; flex: 0 0 clamp(280px, 42vw, 640px); width: clamp(280px, 42vw, 640px); aspect-ratio: 1.2; overflow: hidden; color: #fff; }
+  [data-carousel-ready] .subli-gallery { overflow: hidden; cursor: grab; touch-action: pan-y pinch-zoom; user-select: none; }
+  [data-carousel-ready] .subli-card { cursor: grab; }
+  [data-carousel-dragging] :is(.subli-gallery, .subli-card) { cursor: grabbing; }
+  [data-carousel-dragging] .subli-view { opacity: 0; }
+  [data-carousel-ready] .subli-track { animation: subli-roll 32s linear infinite; }
+  [data-carousel-ready] .subli-group[aria-hidden] { display: flex; }
+  [data-carousel-paused] .subli-track { animation-play-state: paused; }
+  [data-carousel-browsing] .subli-track { animation: none; }
+  [data-carousel-browsing] .subli-gallery { overflow-x: auto; }
+  [data-carousel-browsing] .subli-group[aria-hidden] { display: none; }
+  @keyframes subli-roll { to { transform: translateX(-50%); } }
+  .subli-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .subli-view { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .4); opacity: 0; transition: opacity 200ms ease; font-size: 16px; }
+  .subli-card:is(:hover, :focus-visible) .subli-view { opacity: 1; }
+  .subli-card:focus-visible { outline-offset: -4px; }
+  [hidden] { display: none !important; }
+  @media (max-width: 767px) {
+    .subli-folio { padding: 88px 0 100px; }
+    .subli-heading { margin-bottom: 44px; }
+    .subli-heading h2 { font-size: clamp(24px, 6.7vw, 36px); }
+    .subli-card { flex-basis: clamp(220px, 64vw, 320px); width: clamp(220px, 64vw, 320px); }
+    .subli-group { gap: 3px; padding-right: 3px; }
+  }
+  @media (hover: hover) and (pointer: fine) { .subli-carousel:hover .subli-track { animation-play-state: paused; } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-carousel-ready] .subli-track { animation: none; }
+    [data-carousel-ready] .subli-gallery { overflow-x: auto; }
+    [data-carousel-ready] .subli-group[aria-hidden] { display: none; }
+    .subli-view { transition: none; }
+  }
+</style>

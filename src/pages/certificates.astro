@@ -1,0 +1,39 @@
+---
+import DocumentsLayout from '../layouts/DocumentsLayout.astro';
+import { certificates } from '../data/documents.json';
+
+// shortcut: previews are checked-in renders; regenerate them when the source documents change.
+---
+
+<DocumentsLayout title="Certificates" description="Training certificates and credentials of Dranreb Wen Balangbang." active="certificates">
+  <div class="certificate-grid">
+    {certificates.map((certificate, index) => (
+      <a class="certificate-card" href={encodeURI(certificate.file)} target="_blank" rel="noopener" aria-label={`View ${certificate.title} certificate (opens in a new tab)`}>
+        <div class="certificate-preview">
+          <img src={certificate.preview} width={certificate.width} height={certificate.height} alt="" loading={index < 2 ? 'eager' : 'lazy'} />
+        </div>
+        <div class="certificate-details">
+          <p class="certificate-meta">{certificate.issuer} <span aria-hidden="true">·</span> {certificate.date}</p>
+          <h2>{certificate.title}</h2>
+          <p class="view-document">View certificate <span aria-hidden="true">↗</span></p>
+        </div>
+      </a>
+    ))}
+  </div>
+</DocumentsLayout>
+
+<style>
+  .certificate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .certificate-card { overflow: hidden; border: 1px solid var(--color-border); color: var(--color-text); text-decoration: none; }
+  .certificate-card:is(:hover, :focus-visible) { border-color: var(--color-text-secondary); }
+  .certificate-preview { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: clamp(16px, 3vw, 32px); background: var(--color-pill); border-bottom: 1px solid var(--color-border); }
+  .certificate-preview img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+  .certificate-details { padding: 24px; }
+  .certificate-meta { margin: 0 0 12px; color: var(--color-text-secondary); font-size: 12px; line-height: 1.6; }
+  h2 { margin: 0; font-size: clamp(18px, 2vw, 22px); line-height: 1.35; font-weight: 500; }
+  .view-document { display: flex; justify-content: space-between; gap: 16px; margin: 24px 0 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  @media (max-width: 767px) {
+    .certificate-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .certificate-details { padding: 20px; }
+  }
+</style>

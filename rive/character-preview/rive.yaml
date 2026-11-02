@@ -1,0 +1,4 @@
+name: character-preview
+main: Character
+output:
+  dir: build

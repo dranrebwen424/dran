@@ -1,0 +1,130 @@
+---
+const videos = [
+  { title: 'Aquaguard', file: 'Aquaguard - Promotional Video.mp4', poster: 'aquaguard' },
+  { title: 'Logo animation', file: 'logo.mp4', poster: 'logo' },
+];
+---
+
+<section id="motion-graphics" class="motion-graphics" aria-labelledby="motion-title" tabindex="-1">
+  <div class="motion-inner">
+    <p class="work-label">Selected work</p>
+    <header class="motion-heading" data-project-heading>
+
+      <h2 id="motion-title" class="animated-headline">Motion Graphics.</h2>
+      <p id="motion-title-hint" class="sr-only" hidden>Move across the letters to make them swing. Tap a letter, or focus the heading and press Enter, to play the reaction.</p>
+      <p class="motion-description" data-project-description>Bringing ideas to life through expressive animation, thoughtful transitions and visual storytelling, crafted with After Effects and CapCut.</p>
+    </header>
+    <div class="motion-gallery">
+      {videos.map(video => (
+        <figure class="motion-card">
+          <div class="motion-media">
+            <video muted loop playsinline preload="none" width="1920" height="1080" poster={`/motion-graphics/previews/${video.poster}.webp`} aria-label={video.title}>
+              <source src={`/motion-graphics/previews/${video.poster}.mp4`} type="video/mp4" />
+              <a href={`/motion-graphics/${encodeURIComponent(video.file)}`}>Open {video.title} video</a>
+            </video>
+            <a class="motion-open" href={`/motion-graphics/${encodeURIComponent(video.file)}`} data-motion-open="video" data-title={video.title} aria-label={`Open ${video.title} video`} aria-haspopup="dialog"><span class="motion-view-label">View Video<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>
+          </div>
+          <figcaption>{video.title}</figcaption>
+          <p class="media-error" role="status" hidden>Video unavailable. <a href={`/motion-graphics/${encodeURIComponent(video.file)}`}>Open original video</a></p>
+        </figure>
+      ))}
+      <figure class="motion-card" data-lottie-card>
+        <div class="motion-media">
+          <img class="lottie-poster" src="/motion-graphics/previews/floating-pen.webp" width="960" height="481" alt="A floating pen surrounded by colorful geometric forms" loading="lazy" />
+          <canvas class="lottie-canvas" width="960" height="540" aria-hidden="true" hidden></canvas>
+          <a class="motion-open" href="/motion-graphics/floating-pen-loop-visible-motion.lottie" data-motion-open="lottie" data-title="Floating pen" aria-label="Open floating pen animation" aria-haspopup="dialog"><span class="motion-view-label">View Animation<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg></span></a>
+        </div>
+        <figcaption>Floating pen</figcaption>
+        <p class="media-error" role="status" hidden>Animation unavailable. <a href="/motion-graphics/floating-pen-loop-visible-motion.lottie" download>Download original animation</a></p>
+        <noscript><p class="media-note"><a href="/motion-graphics/floating-pen-loop-visible-motion.lottie" download>Download floating pen animation</a></p></noscript>
+      </figure>
+    </div>
+  </div>
+  <dialog class="motion-modal" aria-labelledby="motion-modal-title">
+    <div class="motion-modal-heading">
+      <h2 id="motion-modal-title"></h2>
+      <button class="motion-modal-close" type="button" aria-label="Close media" autofocus>×</button>
+    </div>
+    <video class="motion-modal-video" controls loop playsinline preload="none" hidden></video>
+    <div class="motion-modal-lottie" hidden><img src="/motion-graphics/previews/floating-pen.webp" width="960" height="481" alt="A floating pen surrounded by colorful geometric forms" /></div>
+    <button class="motion-lottie-toggle" type="button" aria-pressed="false" hidden>Pause animation</button>
+    <p class="motion-modal-error" role="status" hidden>Media unavailable. <a>Open original file</a></p>
+  </dialog>
+</section>
+
+<script>
+  import '../scripts/motion-graphics';
+  import '../scripts/motion-media';
+</script>
+
+<style>
+  .motion-graphics {
+    overflow: clip;
+    padding: 32px var(--page-gutter) 144px;
+    scroll-margin-top: 100px;
+  }
+  .motion-graphics:focus { outline: none; }
+
+  .motion-inner { max-width: 1261px; margin-inline: auto; }
+  .work-label { margin: 0 0 88px; color: var(--color-text-secondary); font-size: 13px; font-weight: 500; letter-spacing: .16em; text-align: center; text-transform: uppercase; }
+  .motion-heading { position: relative; margin-bottom: 40px; text-align: center; }
+  .motion-heading h2 { position: relative; margin: 0; font-family: var(--font-display); font-size: clamp(36px, 4.85vw, 70px); font-weight: 500; line-height: 1.05; letter-spacing: .05em; }
+  .motion-description { position: relative; max-width: 64ch; margin: 12px auto 0; color: var(--color-text-secondary); font-size: clamp(14px, 1.25vw, 18px); line-height: 1.6; letter-spacing: 0; }
+  .motion-description :global(.motion-description-word) { display: inline-block; }
+  .motion-heading h2:global(.has-letter-reactions) :global(.headline-window) { overflow: visible; }
+  .motion-heading h2:focus-visible { outline: 2px solid var(--color-text); outline-offset: 8px; }
+  .motion-gallery { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .motion-card { display: grid; min-width: 0; margin: 0; isolation: isolate; transition: translate 420ms cubic-bezier(.22, 1.25, .36, 1); }
+  .motion-media, .motion-card figcaption { grid-area: 1 / 1; }
+  .motion-media { position: relative; display: grid; place-items: center; aspect-ratio: 409 / 290; overflow: hidden; border-radius: var(--radius-card); background: var(--color-surface-muted); }
+  .motion-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 25%, var(--color-motion-caption) 92%); pointer-events: none; }
+  video, .lottie-poster, .lottie-canvas { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .motion-media video, .lottie-poster { object-fit: cover; }
+  .lottie-poster, .lottie-canvas { position: absolute; inset: 0; pointer-events: none; }
+  [hidden] { display: none !important; }
+  .motion-open { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; color: var(--color-on-inverse); text-decoration: none; }
+  .motion-open::before { content: ''; position: absolute; inset: 0; background: var(--color-motion-hover); opacity: 0; transition: opacity 220ms ease; }
+  .motion-view-label { position: relative; display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; letter-spacing: .05em; opacity: 0; transform: translateY(10px); transition: opacity 220ms ease, transform 420ms cubic-bezier(.22, 1.3, .36, 1); }
+  .motion-view-label svg { opacity: 0; transform: translate(-6px, 6px) rotate(-12deg); transition: opacity 220ms ease 80ms, transform 420ms cubic-bezier(.22, 1.3, .36, 1) 80ms; }
+  .motion-open:is(:hover, :focus-visible)::before, .motion-open:is(:hover, :focus-visible) .motion-view-label, .motion-open:is(:hover, :focus-visible) svg { opacity: 1; }
+  .motion-open:is(:hover, :focus-visible) .motion-view-label, .motion-open:is(:hover, :focus-visible) svg { transform: none; }
+  .motion-lottie-toggle { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--color-glass-border); border-radius: var(--radius-pill); background: var(--color-glass); color: var(--color-text); font-size: 12px; font-weight: 700; backdrop-filter: blur(var(--glass-blur)); }
+  .motion-open:focus-visible { outline-offset: -4px; border-radius: inherit; }
+  .motion-modal { position: fixed; width: min(1120px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 24px; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); color: var(--color-text); }
+  .motion-modal::backdrop { background: var(--color-motion-backdrop); backdrop-filter: blur(8px); }
+  .motion-modal-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+  .motion-modal-heading h2 { margin: 0; font-family: var(--font-body); font-size: 20px; font-weight: 500; }
+  .motion-modal-close { flex-shrink: 0; width: 44px; height: 44px; border: 1px solid var(--color-border); border-radius: 50%; background: var(--color-background); font-size: 26px; }
+  .motion-modal-video, .motion-modal-lottie { width: 100%; max-height: calc(100dvh - 164px); aspect-ratio: 16 / 9; background: var(--color-surface-muted); }
+  .motion-modal-lottie { position: relative; }
+  .motion-modal-lottie img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .motion-lottie-toggle { margin-top: 12px; }
+  .motion-modal-error { font-size: 14px; line-height: 1.5; }
+  .motion-modal-error a { color: inherit; }
+  figcaption { align-self: end; justify-self: start; z-index: 2; margin: 0 16px 16px; color: var(--color-on-inverse); font-size: 14px; font-weight: 500; line-height: 1.4; pointer-events: none; }
+  .media-error, .media-note { font-size: 14px; line-height: 1.5; }
+  .media-error a, .media-note a { color: inherit; }
+
+  @media (max-width: 767px) {
+    .motion-graphics { padding-block: 16px 80px; scroll-margin-top: 94px; }
+    .work-label { margin-bottom: 40px; font-size: 12px; }
+    .motion-heading h2 { font-size: clamp(28px, 8.95vw, 36px); }
+    .motion-description { max-width: 34ch; margin-top: 16px; font-size: 14px; }
+    .motion-gallery { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .motion-media { aspect-ratio: 16 / 9; }
+    figcaption { margin: 0 14px 14px; font-size: 13px; }
+    .motion-modal { width: 100vw; max-width: 100vw; padding: 16px 0; border: 0; }
+    .motion-modal-heading, .motion-lottie-toggle, .motion-modal-error { margin-inline: 16px; }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .motion-card:hover { translate: 0 -6px; }
+  }
+
+  .motion-card:focus-within { translate: 0 -6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-card, .motion-card:hover, .motion-card:focus-within { translate: none; transition: none; }
+    .motion-open::before, .motion-view-label, .motion-view-label svg { transform: none; transition: none; }
+  }
+</style>

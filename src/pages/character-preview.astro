@@ -1,0 +1,129 @@
+---
+import ButtonCharacter from '../components/ButtonCharacter.astro';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Character motion preview | Dranweb</title>
+  </head>
+  <body>
+    <main class="preview-page">
+      <a href="/" class="back-link">← Back to portfolio</a>
+      <p class="eyebrow">Character study / 01</p>
+      <h1>A little work in progress.</h1>
+      <p class="intro">The character walks and rests along the button. Move your cursor inside to lead it to a hammering spot. Move away and it will finish its strike, then wander again. On mobile, tap for one strike.</p>
+
+      <section class="preview-stage" aria-label="Interactive character preview" data-character-stage data-ready="loading" data-mode="idle" data-direction="right" data-strikes="0">
+        <div class="button-shell">
+          <ButtonCharacter />
+          <button type="button" class="preview-work-button" aria-describedby="mock-note" data-character-button>View my work</button>
+        </div>
+      </section>
+
+      <div class="preview-controls">
+        <p class="motion-readout">Idle · facing right</p>
+        <button type="button" class="pause-button" aria-pressed="false" disabled>Pause animation</button>
+      </div>
+      <p class="load-status" role="status">Loading character…</p>
+      <p id="mock-note" class="preview-note">Motion study for the portfolio hero. The button does not navigate.</p>
+      <noscript><p>This preview needs JavaScript for movement. The static character and mock button remain visible.</p></noscript>
+    </main>
+  </body>
+</html>
+
+<style>
+  .preview-page {
+    max-width: 860px;
+    margin-inline: auto;
+    padding: 48px var(--page-gutter) 64px;
+  }
+
+  .back-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .eyebrow {
+    margin-top: 64px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 500;
+    margin-block: 16px;
+    line-height: 1.15;
+  }
+
+  .intro {
+    max-width: 560px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .preview-stage {
+    display: grid;
+    place-items: center;
+    min-height: 310px;
+    margin-top: 32px;
+    padding-top: 80px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+  }
+
+  .button-shell {
+    position: relative;
+    width: min(305px, calc(100vw - 100px));
+  }
+
+  .preview-work-button {
+    width: 100%;
+    min-height: 70px;
+    padding: 20px;
+    border: 0;
+    background: var(--color-inverse);
+    color: var(--color-on-inverse);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .preview-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .motion-readout,
+  .load-status,
+  .preview-note {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .pause-button {
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-background);
+  }
+
+  .pause-button:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+</style>

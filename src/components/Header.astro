@@ -1,0 +1,342 @@
+---
+import ShuffleLabel from './ShuffleLabel.astro';
+
+const projects = [
+  ['#graphic-design', 'Social Media'],
+  ['#sublimation', 'Sublimation'],
+  ['#logo', 'Logo'],
+  ['#web-projects', 'Developments'],
+];
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#hero" aria-label="Dranweb home">
+      <img class="brand-mark" src="/images/dran-logo.svg" width="32" height="33" alt="" />
+      <span class="brand-copy">
+        <span class="brand-name">Dran<span>web</span></span>
+        <span class="brand-role">Graphic Designer</span>
+      </span>
+      <span class="brand-shine" aria-hidden="true"><span class="brand-glint"></span></span>
+    </a>
+
+    <div id="section-switcher" class="section-switcher" role="group" aria-label="Portfolio sections">
+      <span class="section-indicator" aria-hidden="true"></span>
+      <a class="section-button" href="#hero" aria-current="location">Home</a>
+      <a class="section-button" href="#about">About me</a>
+      <details class="desktop-projects">
+        <summary class="section-button">Project<span class="menu-chevron" aria-hidden="true"></span></summary>
+        <nav class="desktop-project-list project-list" aria-label="Project categories">
+          {projects.map(([href, label]) => <a href={href}>{label}</a>)}
+        </nav>
+      </details>
+    </div>
+
+    <div class="header-actions">
+      <a class="contact-button" href="#contact"><span class="contact-label"><ShuffleLabel text="Get in touch" /></span><span class="contact-shine" aria-hidden="true"></span></a>
+      <button type="button" class="icon-button menu-toggle" aria-label="Open section menu" aria-expanded="false" aria-controls="mobile-navigation" data-press>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation">
+    <a class="mobile-nav-entry mobile-nav-row" href="#hero">Home</a>
+    <a class="mobile-nav-entry mobile-nav-row" href="#about">About me</a>
+    <details class="mobile-nav-entry mobile-projects">
+      <summary class="mobile-nav-row">Projects<span class="menu-chevron" aria-hidden="true"></span></summary>
+      <div class="mobile-project-list project-list">
+        {projects.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </details>
+    <a class="mobile-nav-entry mobile-nav-row" href="#contact">Contact</a>
+  </nav>
+</header>
+
+<script>
+  import '../scripts/header-effects';
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--color-background);
+    border-bottom: 0;
+    transition: transform 320ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .site-header[data-scroll-hidden] { transform: translateY(-100%); }
+  .site-header:is(:has(:focus-visible), [data-menu-open]) { transform: none; }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .site-header {
+      background: var(--color-glass);
+      backdrop-filter: blur(var(--glass-blur));
+    }
+  }
+
+  .header-inner {
+    max-width: 1440px;
+    min-height: var(--header-height);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .brand {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .brand img {
+    display: block;
+    transform-origin: 50% 100%;
+  }
+
+  .brand-shine { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
+  .brand-glint { position: absolute; inset: -50% auto -50% 0; width: 60%; opacity: 0; background: linear-gradient(110deg, transparent 20%, var(--color-on-inverse) 50%, transparent 80%); }
+
+  .brand-copy {
+    display: grid;
+    gap: 3px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1;
+  }
+
+  .brand-name span,
+  .brand-role {
+    color: var(--color-text-secondary);
+  }
+
+  .brand-name span {
+    font-weight: 400;
+  }
+
+  .brand-role {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    white-space: nowrap;
+  }
+
+  .section-switcher {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 292px;
+    padding: 4px;
+    isolation: isolate;
+    border: 0;
+    background: transparent;
+  }
+
+  .section-indicator {
+    position: absolute;
+    inset: 4px auto 4px 4px;
+    width: calc((100% - 8px) / 3);
+    z-index: -1;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .section-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: inherit;
+    text-decoration: none;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+  }
+
+  .section-indicator::before, .section-indicator::after {
+    display: none;
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    opacity: .15;
+    filter: blur(.2px);
+    /* Intersect the hollow rim with two fading end caps. */
+    mask: linear-gradient(90deg, var(--color-inverse), transparent 36%, transparent 64%, var(--color-inverse)) border-box,
+      linear-gradient(var(--color-inverse) 0 0) border-box,
+      linear-gradient(var(--color-inverse) 0 0) content-box;
+    mask-composite: intersect, exclude;
+  }
+  .section-indicator::before { background: var(--color-lens-red); transform: translateX(-.5px); }
+  .section-indicator::after { background: var(--color-lens-cyan); transform: translateX(.5px); }
+  .section-button:not([aria-current]) { color: var(--color-text-secondary); }
+  .desktop-projects { position: relative; }
+  .desktop-projects summary { list-style: none; cursor: pointer; gap: 8px; }
+  .desktop-projects .menu-chevron { flex: 0 0 7px; margin: -4px 0 0; }
+  .desktop-projects summary::-webkit-details-marker { display: none; }
+  .desktop-project-list { position: absolute; top: calc(100% + 8px); left: 50%; width: 220px; padding: 8px; transform: translateX(-50%); border: 1px solid var(--color-border); background: var(--color-background); }
+  .project-list a { display: flex; align-items: center; min-height: 52px; padding: 12px 16px; color: var(--color-text-secondary); font-size: 17px; text-decoration: none; }
+  .project-list a:is(:hover, :focus-visible) { color: var(--color-text); background: #f5f5f7; }
+  .menu-chevron { width: 7px; height: 7px; margin: -4px 4px 0 0; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 220ms ease; }
+  :is(.desktop-projects, .mobile-projects)[open] .menu-chevron { transform: rotate(225deg); }
+
+  .header-actions {
+    display: flex;
+    justify-self: end;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-button { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; min-width: 138px; min-height: 44px; padding: 12px 20px; border: 1px solid var(--color-text); border-radius: var(--radius-pill); background: var(--color-background); color: var(--color-text); font-size: 12px; font-weight: 500; letter-spacing: .01em; text-decoration: none; transition: color 220ms ease, scale 480ms var(--ease-out), translate 480ms var(--ease-out); }
+  .contact-button::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--color-inverse); transform: scaleY(0); transform-origin: 50% 100%; transition: transform 420ms cubic-bezier(.22, 1, .36, 1); }
+  .contact-label { position: relative; z-index: 2; }
+  .contact-shine { position: absolute; inset: -50% 0; z-index: 1; pointer-events: none; opacity: 0; background: linear-gradient(110deg, transparent 30%, var(--color-on-inverse) 50%, transparent 70%); mix-blend-mode: difference; animation: contact-shine 11s ease-in-out infinite; }
+  .site-header[data-effects-paused] .contact-shine { animation-play-state: paused; }
+  .contact-button:focus-visible { color: var(--color-on-inverse); scale: 1.035; translate: 0 -2px; }
+  .contact-button:focus-visible::before { transform: scaleY(1); }
+  @media (hover: hover) and (pointer: fine) {
+    .contact-button:hover { color: var(--color-on-inverse); scale: 1.035; translate: 0 -2px; }
+    .contact-button:hover::before { transform: scaleY(1); }
+  }
+  .contact-button:active { scale: .98; translate: 0; }
+  @keyframes contact-shine {
+    0%, 84% { transform: translateX(-130%); opacity: 0; }
+    87% { opacity: .2; }
+    98%, 100% { transform: translateX(130%); opacity: 0; }
+  }
+
+  .icon-button {
+    display: grid;
+    place-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: transparent;
+  }
+
+  .menu-toggle {
+    display: none;
+    gap: 6px;
+  }
+
+  .mobile-nav { display: none; }
+
+  .menu-line {
+    width: 18px;
+    height: 1px;
+    background: var(--color-text);
+    transition: transform 220ms ease;
+  }
+
+  @media (max-width: 767px) {
+    .header-inner {
+      min-height: 70px;
+      grid-template-columns: 1fr auto;
+      gap: 0 8px;
+    }
+
+    .brand {
+      gap: 6px;
+    }
+
+    .brand img {
+      width: 26px;
+      height: auto;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      letter-spacing: .08em;
+    }
+
+    .brand-role {
+      font-size: 10px;
+    }
+
+    .contact-button, .section-switcher { display: none; }
+
+    .menu-toggle {
+      display: grid;
+      gap: 5px;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .menu-line {
+      width: 20px;
+      transition: transform 220ms ease, opacity 160ms ease;
+    }
+
+    .mobile-nav {
+      position: absolute;
+      inset: 100% 0 auto;
+      height: calc(100dvh - 70px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: var(--color-background);
+      border-top: 1px solid var(--color-border);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .mobile-nav-row { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 78px; padding: 22px var(--page-gutter); border: 0; border-bottom: 1px solid var(--color-border); background: transparent; color: var(--color-text); font-size: 20px; font-weight: 500; text-decoration: none; text-align: left; }
+    summary.mobile-nav-row { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    summary.mobile-nav-row::-webkit-details-marker { display: none; }
+    summary.mobile-nav-row:focus-visible { outline: 2px solid var(--color-text); outline-offset: -4px; }
+    .mobile-project-list { padding: 8px var(--page-gutter) 12px; border-bottom: 1px solid var(--color-border); }
+    .mobile-nav :is(a, button):focus-visible { outline-offset: -4px; }
+
+    .site-header[data-menu-open] .mobile-nav {
+      display: block;
+    }
+
+    .site-header[data-menu-open] .menu-line:first-child {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .site-header[data-menu-open] .menu-line:nth-child(2) { opacity: 0; }
+
+    .site-header[data-menu-open] .menu-line:last-child {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    :global(html[data-mobile-menu-open]) { overflow: hidden; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header { transition: none; }
+    .contact-button, .contact-button::before { transition: none; }
+    .contact-button:is(:hover, :focus-visible, :active) { scale: none; translate: none; }
+    .contact-shine { animation: none; }
+    .menu-line, .menu-chevron {
+      transition: none;
+    }
+  }
+</style>

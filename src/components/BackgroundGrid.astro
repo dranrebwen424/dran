@@ -1,0 +1,55 @@
+---
+const { id = 'background-grid', local = false } = Astro.props;
+---
+
+<div class:list={['background-grid', local && 'contact-grid']} aria-hidden="true">
+  <svg width="100%" height="100%" focusable="false">
+    <defs>
+      <pattern id={`${id}-pattern`} width="48" height="48" patternUnits="userSpaceOnUse">
+        <path d="M0 24H48M24 0V48" fill="none" stroke="var(--color-grid-ink, var(--color-inverse))" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.7" />
+        <circle cx="24" cy="24" r="1.6" fill="var(--color-grid-ink, var(--color-inverse))" />
+      </pattern>
+      <mask id={`${id}-wave`} x="0" y="0" width="100%" height="100%" maskUnits="userSpaceOnUse" style="mask-type: alpha">
+        <circle class="grid-wave" r="0" fill="none" stroke="var(--color-on-inverse)" stroke-width="128" />
+      </mask>
+    </defs>
+    <rect class="grid-base" width="100%" height="100%" fill={`url(#${id}-pattern)`} />
+    <rect class="grid-ripple" width="100%" height="100%" fill={`url(#${id}-pattern)`} mask={`url(#${id}-wave)`} opacity="0" />
+    <g class="grid-trail"></g>
+  </svg>
+</div>
+
+<style>
+  .background-grid {
+    --grid-section-opacity: 1;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, var(--color-inverse) 20%, transparent 78%);
+  }
+
+  .grid-base {
+    opacity: var(--grid-opacity);
+  }
+
+  .contact-grid {
+    --color-grid-ink: #fff;
+    --color-grid-hover: rgb(255 255 255 / .04);
+    --grid-opacity: .14;
+    position: absolute;
+    z-index: -1;
+  }
+
+  svg {
+    opacity: var(--grid-section-opacity, 1);
+  }
+
+  .grid-trail :global(.grid-cell-fill) {
+    fill: var(--color-grid-hover);
+  }
+
+  .grid-trail :global(.grid-cell-lines) {
+    opacity: var(--grid-active-opacity);
+  }
+</style>

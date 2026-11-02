@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+test-results/
+playwright-report/
+
+# Media masters are kept locally, not in the repo (GitHub blocks files >100 MB)
+public/motion-graphics/
+
+# Local working output: screenshots, design docs, references
+output/
+.artifacts/
+context/
+profile/
+reference-file/

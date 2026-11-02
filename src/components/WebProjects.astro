@@ -1,0 +1,61 @@
+---
+const projects = [
+  { title: 'Liquifi', image: 'liquifi', url: 'https://liquifi-app.vercel.app/', description: 'A full-stack budget and liquidation management system for Mabini Colleges councils.' },
+  { title: 'DILG-Survey', image: 'dilg-survey', url: 'https://dilg-survey-web.vercel.app/', description: 'Digital surveys with PDF exports for DILG.' },
+];
+---
+
+<section id="web-projects" class="web-projects" aria-labelledby="web-projects-title" tabindex="-1">
+  <div class="web-projects-inner">
+    <header class="web-projects-heading" data-project-heading>
+      <h2 id="web-projects-title" class="animated-headline">Develop<span class="title-muted">ments</span></h2>
+      <p id="web-projects-title-hint" class="sr-only" hidden>Move across the letters to make them swing. Tap a letter, or focus the heading and press Enter, to play the reaction.</p>
+      <p class="web-projects-description sr-only" data-project-description>Purpose-built websites and web apps, turning everyday challenges into thoughtful digital experiences.</p>
+    </header>
+    <div class="web-projects-gallery">
+      {projects.map(project => (
+        <a class="web-project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title} (opens in a new tab)`}>
+          <h3>{project.title}</h3>
+          <div class="web-project-preview"><img src={`/web-projects/${project.image}.png`} width="1440" height="1000" alt={project.description} loading="lazy" /></div>
+          <span class="web-project-action" aria-hidden="true"><span class="web-project-arrow"><svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12h36m-9-9 9 9-9 9" /></svg></span><span>View</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/web-projects';
+</script>
+
+<style>
+  .web-projects { padding: 32px 24px 96px; scroll-margin-top: 100px; }
+  .web-projects:focus { outline: none; }
+  .web-projects-inner { max-width: none; margin-inline: auto; }
+  .web-projects-heading { margin-bottom: 64px; text-align: center; }
+  .web-projects-heading h2 { margin: 0; font: 400 clamp(36px, 4.5vw, 64px)/1.15 var(--font-display); }
+  .title-muted { --color-text: #595959; color: var(--color-text); }
+  .web-projects-heading h2:global(.has-letter-reactions) :global(.headline-window) { overflow: visible; }
+  .web-projects-gallery { display: grid; gap: 80px; }
+  .web-project-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.7fr) minmax(0, 1fr); align-items: center; gap: 40px; color: #000; text-decoration: none; }
+  .web-project-card h3 { margin: 0; font: 400 clamp(24px, 3vw, 46px)/1.15 var(--font-display); overflow-wrap: anywhere; transform-origin: 0 50%; }
+  .web-project-preview { aspect-ratio: 1.8; overflow: hidden; border: 1px solid var(--color-border); background: #f5f5f7; }
+  .web-project-preview img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: scale 500ms var(--ease-out); }
+  .web-project-action { display: flex; align-items: center; justify-self: end; gap: 16px; font: 400 clamp(20px, 2.5vw, 36px)/1 var(--font-display); transform-origin: 0 50%; }
+  .web-project-arrow { display: flex; align-items: center; flex: 0 0 64px; }
+  .web-project-action svg { flex-shrink: 0; }
+  .web-project-card:is(:hover, :focus-visible) img { scale: 1.03; }
+  @media (max-width: 767px) {
+    .web-projects { padding: 0 24px 100px; }
+    .web-projects-heading { margin-bottom: 60px; }
+    .web-projects-heading h2 { font-size: clamp(24px, 6.5vw, 36px); }
+    .web-projects-gallery { gap: 48px; }
+    .web-project-card { grid-template-columns: minmax(0, 1fr) auto; gap: 20px 12px; }
+    .web-project-preview { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 1.8; }
+    .web-project-card h3 { font-size: 23px; }
+    .web-project-action { gap: 8px; font-size: 20px; }
+    .web-project-arrow { flex-basis: 48px; }
+    .web-project-action svg { width: 30px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .web-project-preview img { transition: none; } .web-project-card:is(:hover, :focus-visible) img { scale: none; } }
+</style>

@@ -1,0 +1,144 @@
+@import './tokens.css';
+
+@font-face {
+  font-family: 'Cold Warm';
+  src: url('/fonts/Cold%20Warm.otf') format('opentype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  isolation: isolate;
+}
+
+::selection {
+  background: var(--color-text);
+  color: var(--color-on-inverse);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: var(--page-gutter);
+  z-index: 50;
+  padding: 12px 20px;
+  background: var(--color-inverse);
+  color: var(--color-on-inverse);
+  transform: translateY(-180%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-about-entrance='pending'] .portrait-interaction { clip-path: inset(100% 0 0); }
+  html[data-page-entrance='pending'] :is(body > .background-grid, .hero-role, .hero-summary, .hero-action, #hero .hero-shapes, #hero .portrait-shapes) {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.animated-headline .headline-letter {
+  display: inline-block;
+  position: relative;
+  visibility: hidden;
+  color: transparent;
+}
+
+.animated-headline .headline-window {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  color: var(--color-text);
+}
+
+.animated-headline .headline-glyph {
+  display: block;
+  backface-visibility: hidden;
+}
+
+.project-index {
+  margin: 0 0 20px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .project-index { margin-bottom: 14px; font-size: 10px; }
+}
+

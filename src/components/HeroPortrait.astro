@@ -1,0 +1,31 @@
+---
+import profile from '../../profile/profile.svg?url';
+import PortraitShapes from './PortraitShapes.astro';
+---
+
+<div class="hero-portrait about-portrait-frame">
+  <div class="portrait-interaction">
+    <img class="about-portrait" src={profile} width="498" height="618" alt="Dranreb Wen Balangbang smiling in a black T-shirt" fetchpriority="high" draggable="false" />
+    <canvas class="portrait-shatter" aria-hidden="true" hidden></canvas>
+    <button class="portrait-hit" type="button" aria-label="Shatter portrait" aria-describedby="portrait-hit-hint" hidden></button>
+  </div>
+  <p id="portrait-hit-hint" class="sr-only" hidden>Click or tap a spot to scatter small pieces and tilt the portrait. Enter or Space animates the center.</p>
+  <PortraitShapes />
+</div>
+
+<script>
+  import '../scripts/portrait-shatter';
+</script>
+
+<style>
+  .hero-portrait { position: relative; min-width: 0; width: min(100%, 498px); justify-self: end; align-self: center; }
+  .portrait-interaction { position: relative; translate: 0 var(--portrait-parallax, 0px); }
+  .about-portrait { display: block; width: 100%; height: auto; mask-image: linear-gradient(#000 66%, transparent 99%); }
+  .portrait-shatter { position: absolute; inset: calc(-1 * var(--shatter-bleed, 0px)); width: calc(100% + 2 * var(--shatter-bleed, 0px)); height: calc(100% + 2 * var(--shatter-bleed, 0px)); pointer-events: none; }
+  .portrait-hit { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; touch-action: pan-y pinch-zoom; }
+  .portrait-hit:focus-visible { outline-offset: -4px; }
+  [hidden] { display: none; }
+  @media (max-width: 767px) {
+    .hero-portrait { width: min(100%, 290px); justify-self: center; }
+  }
+</style>

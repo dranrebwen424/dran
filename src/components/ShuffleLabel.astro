@@ -1,0 +1,22 @@
+---
+interface Props { text: string; }
+const { text } = Astro.props;
+---
+
+<span class="shuffle-label" data-shuffle-label>
+  <span class="sr-only">{text}</span>
+  <span class="shuffle-letters" aria-hidden="true">
+    {[...text].map(letter => <span class="shuffle-letter" data-letter={letter}><span>{letter}</span></span>)}
+  </span>
+</span>
+
+<script>
+  import '../scripts/button-shuffle';
+</script>
+
+<style>
+  .shuffle-letters { display: inline-flex; white-space: pre; }
+  .shuffle-letter { position: relative; }
+  .shuffle-letter::before { content: attr(data-letter); visibility: hidden; }
+  .shuffle-letter > span { position: absolute; inset: 0; text-align: center; }
+</style>

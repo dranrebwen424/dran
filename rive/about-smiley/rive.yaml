@@ -1,0 +1,4 @@
+name: about-smiley
+main: Smiley
+output:
+  dir: build

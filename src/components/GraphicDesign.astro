@@ -1,0 +1,105 @@
+---
+import artworks from '../data/graphic-design.json';
+import ImageViewer from './ImageViewer.astro';
+
+const collectionTitles = [
+  ['Working together', 'Safer School Zones', 'Barangay leadership and tanods', 'The SAFER framework', 'Why safer school zones?'],
+  ['Elected SK officials', 'Resignation accepted?', 'Appointed SK officials', 'Read the full advisory', 'Thinking of resigning?'],
+  ['Mercedes', 'Camarines Norte', 'Celebrating local achievements', 'Recognizing local councils'],
+  ['Katarungang Pambarangay', 'Peaces of Me'],
+];
+const collections = collectionTitles.map(titles => titles.map(title => {
+  const index = artworks.findIndex(art => art.title === title);
+  if (index < 0) throw new Error(`Missing portfolio artwork: ${title}`);
+  return { ...artworks[index], index };
+}));
+---
+
+<section id="graphic-design" class="graphic-design" aria-labelledby="graphic-title" tabindex="-1">
+  <div class="graphic-inner">
+    <p class="work-label">WORK</p>
+    <header class="graphic-heading" data-project-heading>
+      <h2 id="graphic-title" class="animated-headline">Social <span class="title-muted">Media</span></h2>
+      <p id="graphic-title-hint" class="sr-only" hidden>Move across the letters to make them swing. Tap a letter, or focus the heading and press Enter, to play the reaction.</p>
+      <p class="graphic-description sr-only" data-project-description>Posters, publications and visual stories, crafted with Adobe Illustrator and Photoshop.</p>
+    </header>
+    {[0, 1].map(block => (
+      <div class:list={['graphic-collections', block === 1 && 'graphic-backdrop']}>
+        {collections.slice(block * 2, block * 2 + 2).map((collection, index) => (
+          <div class:list={['graphic-collection', `graphic-collection-${block * 2 + index}`]}>
+            <div class="graphic-gallery">
+              {collection.map(art => (
+                <figure class="graphic-card">
+                  <a href={`/graphic-design/${encodeURI(art.file)}`} class="graphic-open" data-artwork={art.index} data-title={art.title} data-viewer-src={`/graphic-design/previews/artwork-${art.index + 1}-1200.webp`} aria-label={`View ${art.title} - ${art.category}`}>
+                    <img src={`/graphic-design/previews/artwork-${art.index + 1}-600.webp`} srcset={`/graphic-design/previews/artwork-${art.index + 1}-600.webp 600w, /graphic-design/previews/artwork-${art.index + 1}-1200.webp 1200w`} sizes="50vw" width={art.width} height={art.height} alt={art.alt} loading="lazy" decoding="async" />
+                    <span class="graphic-view" aria-hidden="true">View design &nearr;</span>
+                  </a>
+                </figure>
+              ))}
+            </div>
+            {block === 1 && index === 0 && <img class="social-phone" src="/graphic-design/lcat-vawc/phone.png" width="1117" height="1409" alt="LCAT-VAWC campaign publications shown in a phone mockup" loading="lazy" decoding="async" />}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+  <ImageViewer />
+</section>
+
+<script>
+  import '../scripts/graphic-design';
+</script>
+
+<style>
+  .graphic-design { overflow: clip; padding: 32px 24px 0; scroll-margin-top: 100px; }
+  .graphic-design:focus { outline: none; }
+  .graphic-inner { max-width: none; margin-inline: auto; }
+  .work-label { margin: 0 0 56px; color: #a09b9c; font-size: 16px; letter-spacing: .35em; text-align: center; }
+  .graphic-heading { position: relative; text-align: center; margin-bottom: 64px; }
+  .graphic-heading h2 { margin: 0; font: 400 clamp(36px, 4.5vw, 64px)/1.15 var(--font-display); }
+  .title-muted { --color-text: #595959; color: var(--color-text); }
+  .graphic-heading h2:global(.has-letter-reactions) :global(.headline-window) { overflow: visible; }
+  [hidden] { display: none !important; }
+  .graphic-collections + .graphic-collections { margin-top: 20vw; }
+  .graphic-backdrop { position: relative; isolation: isolate; padding: clamp(48px, 4.5vw, 64px) 0 24px; }
+  .graphic-backdrop::before { content: ''; position: absolute; inset: 0 calc((100% - 100vw) / 2); z-index: -1; background: #f5f5f7; pointer-events: none; }
+  .graphic-collection + .graphic-collection { margin-top: clamp(48px, 5vw, 80px); }
+  .graphic-gallery { display: grid; gap: 6px; }
+  .graphic-card { min-width: 0; margin: 0; overflow: hidden; transition: translate 420ms var(--ease-out); }
+  .graphic-open { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; color: #fff; }
+  .graphic-open img { display: block; width: 100%; height: 100%; object-fit: cover; transition: scale 500ms var(--ease-out); }
+  .graphic-view { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .4); opacity: 0; transition: opacity 200ms ease; font-size: 16px; }
+  .graphic-open:is(:hover, :focus-visible) .graphic-view { opacity: 1; }
+  .graphic-open:is(:hover, :focus-visible) img { scale: 1.025; }
+  .graphic-open:focus-visible { outline-offset: -4px; }
+  .graphic-collection-0 .graphic-gallery { grid-template-columns: 1fr 2fr 1fr; }
+  .graphic-collection-0 .graphic-card { aspect-ratio: 1; }
+  .graphic-collection-0 .graphic-card:nth-child(2) { grid-column: 2; grid-row: 1 / 3; }
+  .graphic-collection-0 .graphic-card:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .graphic-collection-0 .graphic-card:nth-child(4) { grid-column: 1; grid-row: 2; }
+  .graphic-collection-0 .graphic-card:nth-child(5) { grid-column: 3; grid-row: 2; }
+  .graphic-collection-1 .graphic-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .graphic-collection-1 .graphic-card { aspect-ratio: 1; }
+  .graphic-collection-1 .graphic-card:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .graphic-collection-1 .graphic-card:nth-child(4) { grid-column: 2; grid-row: 2; }
+  .graphic-collection-1 .graphic-card:last-child { grid-column: 3 / 5; grid-row: 1 / 3; }
+  .graphic-collection-2 { position: relative; }
+  .graphic-collection-2 .graphic-gallery { width: 50.7%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 2vw, 28px) 6px; }
+  .graphic-collection-2 .graphic-card { aspect-ratio: 1; }
+  .graphic-collection-2 .graphic-card:nth-child(-n + 2) { position: relative; left: 30%; }
+  .social-phone { position: absolute; z-index: 1; display: block; width: 52%; height: auto; right: 2%; bottom: -1%; pointer-events: none; }
+  .graphic-collection-3 .graphic-gallery { grid-template-columns: 1fr 1fr; }
+  .graphic-collection-3 .graphic-card { aspect-ratio: 1.3; }
+  @media (max-width: 767px) {
+    .graphic-design { padding: 0 8px; }
+    .work-label { font-size: 10px; margin-bottom: 44px; }
+    .graphic-heading { margin-bottom: 44px; }
+    .graphic-heading h2 { font-size: clamp(24px, 6.7vw, 36px); }
+    .graphic-gallery { gap: 3px; }
+    .graphic-collection + .graphic-collection { margin-top: 64px; }
+    .graphic-collections + .graphic-collections { margin-top: 96px; }
+    .graphic-backdrop { padding: 24px 0 16px; }
+
+  }
+  @media (prefers-reduced-motion: reduce) { .graphic-card, .graphic-open img, .graphic-view { transition: none; } .graphic-open:is(:hover, :focus-visible) img { scale: none; } }
+</style>

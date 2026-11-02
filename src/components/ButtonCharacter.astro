@@ -1,0 +1,37 @@
+<div class="character" aria-hidden="true">
+  <img class="character-fallback" src="/animations/character-preview.svg" width="120" height="120" alt="" />
+  <canvas class="character-canvas" width="240" height="240" hidden></canvas>
+</div>
+
+<script>
+  import('../scripts/character-preview').catch(() => {
+    document.querySelectorAll<HTMLElement>('[data-character-stage]').forEach(stage => {
+      stage.dataset.ready = 'error';
+      const status = stage.querySelector<HTMLElement>('.load-status') ?? document.querySelector<HTMLElement>('.load-status');
+      if (status) status.textContent = 'The animation could not start. The static character and button are still available.';
+    });
+  });
+</script>
+
+<style>
+  .character {
+    position: absolute;
+    top: -106px;
+    left: calc(50% - 60px);
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+  }
+
+  .character img,
+  .character canvas {
+    width: 120px;
+    height: 120px;
+    image-rendering: pixelated;
+  }
+
+  .character-canvas:not([hidden]) {
+    display: block;
+    filter: drop-shadow(0 0 0.5px var(--color-border));
+  }
+</style>

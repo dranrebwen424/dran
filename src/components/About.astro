@@ -1,0 +1,77 @@
+---
+import AboutSmiley from './AboutSmiley.astro';
+import ShuffleLabel from './ShuffleLabel.astro';
+---
+
+<section id="about" class="about" aria-labelledby="about-label" tabindex="-1">
+  <div class="about-label-row"><h2 id="about-label" class="about-label">ABOUT ME</h2></div>
+  <div class="about-layout">
+    <div class="about-copy">
+      <h3>Designed with<br />purpose. <span>Built<br class="desktop-break" /> for<br class="mobile-break" /> <span class="statement-ending">people. <AboutSmiley /></span></span></h3>
+      <p>I bring ideas to life through visuals and web applications that look good, work well, and connect with their audience.</p>
+    </div>
+    <div class="about-credentials">
+      <div class="about-education">
+        <h3>Education</h3>
+        <p class="about-degree">Bachelor of Science in Computer Science</p>
+        <p class="about-school">Mabini Colleges Inc.</p>
+        <p class="about-dates">2023 &ndash; Ongoing</p>
+      </div>
+      <div class="about-actions">
+        <a href="/certificates/" class="about-button" data-press><ShuffleLabel text="CERTIFICATES" /></a>
+        <a href="/resume/" class="about-button about-button-outline" data-press><ShuffleLabel text="RESUME" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/about-entrance';
+</script>
+
+<style>
+  .about { position: relative; z-index: 2; isolation: isolate; max-width: 1280px; margin-inline: auto; padding: 32px var(--page-gutter) 112px; scroll-margin-top: 100px; }
+  .about::before { content: ''; position: absolute; inset: 0 calc((100% - 100vw) / 2); z-index: -1; background: var(--color-background); }
+  .about:focus { outline: none; }
+  .about-label-row { display: flex; align-items: center; justify-content: center; margin-bottom: 64px; }
+  .about-label { margin: 0; color: #a09b9c; font-size: 16px; font-weight: 500; letter-spacing: .35em; }
+  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-copy h3 { margin: 0 0 28px; font-family: var(--font-display); font-size: clamp(36px, 4.5vw, 64px); font-weight: 400; line-height: 1.2; }
+  .about-copy h3 span { color: #595959; }
+  .statement-ending { white-space: nowrap; }
+  .statement-ending :global(.about-smiley) { margin-left: 8px; vertical-align: middle; }
+  .statement-ending :global(.smiley-face) { width: clamp(44px, 4.4vw, 64px); height: clamp(44px, 4.4vw, 64px); }
+  .mobile-break { display: none; }
+  .about-copy > p { max-width: 40ch; margin: 0; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.35; }
+  .about-credentials { min-width: 0; }
+  .about-education { position: relative; padding: 32px 0 4px 24px; }
+  .about-education::before { content: ''; position: absolute; z-index: 1; left: -4px; bottom: 28px; width: 9px; height: 9px; border-radius: 50%; background: #000; }
+  .about-education::after { content: ''; position: absolute; left: 0; top: 0; bottom: 32px; width: 1px; background: #595959; }
+  .about-education h3 { margin: 0 0 20px; color: #595959; font-size: 20px; font-weight: 400; }
+  .about-education p { margin: 0; line-height: 1.25; }
+  .about-degree { font-size: clamp(18px, 1.65vw, 24px); font-weight: 700; }
+  .about-school { margin-top: 8px !important; font-size: 22px; }
+  .about-dates { margin-top: 8px !important; color: #595959; font-size: 16px; letter-spacing: .2em; }
+  .about-actions { display: flex; gap: 32px; margin: 72px 0 0 24px; }
+  .about-button { display: inline-flex; align-items: center; justify-content: center; width: 50%; min-height: 68px; padding: 16px; border: 1px solid #000; background: #000; color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; transition: translate 300ms var(--ease-out), background-color 180ms ease; }
+  .about-button-outline { background: #fff; color: #000; border-color: #595959; }
+  .about-button:is(:hover, :focus-visible) { translate: 0 -3px; background: #242424; color: #fff; }
+  @media (max-width: 767px) {
+    .about { padding: 16px 24px 100px; }
+    .about-label-row { margin-bottom: 40px; }
+    .desktop-break { display: none; }
+    .mobile-break { display: initial; }
+    .about-label { font-size: 11px; }
+    .about-layout { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .about-copy h3 { font-size: clamp(26px, 7.5vw, 36px); line-height: 1.2; margin-bottom: 24px; }
+    .about-copy > p { font-size: 18px; }
+    .about-education { padding: 0 0 0 20px; margin-left: 3px; }
+    .about-education h3 { font-size: 14px; margin-bottom: 12px; }
+    .about-degree { font-size: 16px; }
+    .about-school { margin-top: 14px !important; font-size: 17px; }
+    .about-dates { margin-top: 12px !important; font-size: 12px; }
+    .about-actions { margin: 36px 0 0; gap: 18px; }
+    .about-button { min-height: 48px; font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .about-button:is(:hover, :focus-visible) { translate: none; transition: none; } }
+</style>

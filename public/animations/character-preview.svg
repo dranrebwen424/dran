@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" shape-rendering="crispEdges" role="img" aria-labelledby="title desc">
+  <title id="title">Mint character facing right</title>
+  <desc id="desc">Editable pixel-art vector of the original right-facing character holding a hammer. Transparent background.</desc>
+  <g transform="translate(120 212) scale(0.12743362831858407) translate(-496.5 -758.0)">
+    <g id="legs" fill="#408c73">
+      <path d="M372 642H418V707H472V732H494V758H310V733H333V711H349V707H372Z" />
+      <path d="M592 642H638V707H696V732H720V758H534V733H557V707H592Z" />
+      <path fill="#34775f" d="M400 655H418V707H400ZM620 655H638V707H620Z" />
+    </g>
+    <g id="body">
+      <path fill="#52b797" d="M238 282H757V305H779V632H757V655H238V632H214V305H238Z" />
+      <path fill="#64c0a0" d="M214 345H230V632H214Z" />
+      <path fill="#4bad8e" d="M757 305H779V632H757ZM238 639H757V655H238Z" />
+      <path fill="#81cbb0" d="M431 309H753V629H431Z" />
+      <path fill="#70c4a5" d="M431 609H442V629H431Z" />
+    </g>
+    <g id="hammer">
+      <path fill="#656763" d="M306 332H373V542H306Z" />
+      <path fill="#575b56" d="M306 345H320V542H306Z" />
+      <path fill="#303332" d="M531 165H545V282H531Z" />
+      <path fill="#a4a5a3" d="M220 165H373V345H82V305H104V282H125V259H145V238H158V232H178V211H199V189H220Z" />
+      <path fill="#b0b1ae" d="M82 305H97V345H82ZM145 238H157V259H145ZM199 189H209V211H199Z" />
+      <path fill="#e6e8e7" d="M373 165H391V345H373Z" />
+      <path fill="#d6d8d7" d="M391 165H531V345H391Z" />
+    </g>
+    <g id="arm">
+      <path fill="#4aad8e" d="M230 450H286V473H332V450H397V519H374V542H230Z" />
+      <path fill="#3f896f" d="M239 450H286V473H332V450H397V519H306V542H239Z" />
+    </g>
+    <g id="eyes">
+      <path fill="#59b899" d="M534 496H545V587H534ZM649 496H661V587H649Z" />
+      <path fill="#030a07" d="M545 496H593V587H545ZM661 496H708V587H661Z" />
+    </g>
+  </g>
+</svg>

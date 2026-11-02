@@ -1,0 +1,32 @@
+{
+  "name": "dran",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "test": "playwright test",
+    "test:dev": "playwright test --config playwright.dev.config.ts",
+    "rive:build": "python rive/character-preview/generate.py",
+    "rive:smiley": "python rive/about-smiley/generate.py",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.77.1",
+    "@rive-app/canvas": "^2.44.2",
+    "astro": "^7.3.8",
+    "gsap": "^3.15.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.64.1",
+    "@types/three": "^0.186.0",
+    "typescript": "^6.0.3"
+  }
+}

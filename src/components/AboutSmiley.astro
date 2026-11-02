@@ -1,0 +1,26 @@
+<span class="about-smiley" data-ready="loading" data-motion="static">
+  <button class="smiley-face" type="button" aria-label="Make the smiley giggle" disabled>
+    <img src="/animations/about-smiley.svg" width="64" height="64" alt="" />
+    <canvas width="28" height="28" aria-hidden="true"></canvas>
+  </button>
+</span>
+
+<script>
+  import('../scripts/about-smiley').catch(() => {
+    const smiley = document.querySelector<HTMLElement>('.about-smiley');
+    if (smiley) smiley.dataset.ready = 'error';
+  });
+</script>
+
+<style>
+  .about-smiley { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .smiley-face { position: relative; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 50%; background: transparent; }
+  .smiley-face img, .smiley-face canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .smiley-face canvas { position: absolute; inset: 0; visibility: hidden; }
+  [data-ready='true']:not([data-motion='static']) .smiley-face canvas { visibility: visible; }
+  [data-ready='true']:not([data-motion='static']) .smiley-face img { visibility: hidden; }
+  .smiley-face:disabled { cursor: default; }
+  @media (max-width: 767px) {
+    .smiley-face { width: 48px; height: 48px; }
+  }
+</style>

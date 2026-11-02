@@ -1,0 +1,130 @@
+[
+  {
+    "file": "Movie-poster/peaces of me.jpg",
+    "title": "Peaces of Me",
+    "category": "Film poster",
+    "alt": "A woman framed by a sunlit landscape with flowing film-title lettering",
+    "width": 3300,
+    "height": 2550
+  },
+  {
+    "file": "brochure/brochure.png",
+    "title": "Katarungang Pambarangay",
+    "category": "Brochure design",
+    "alt": "Blue and white barangay justice brochure shown in a folded print mockup",
+    "width": 3368,
+    "height": 2382
+  },
+  {
+    "file": "sk-resignation/Artboard 1 copy@4x.png",
+    "title": "Thinking of resigning?",
+    "category": "SK advisory",
+    "alt": "Blue and yellow SK resignation advisory with a large question mark",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "lcat-vawc/Artboard 1 copy 4@4x (1).png",
+    "title": "Camarines Norte",
+    "category": "Public information",
+    "alt": "Congratulatory Camarines Norte LCAT-VAWC publication with the provincial seal",
+    "width": 2304,
+    "height": 2305
+  },
+  {
+    "file": "SSZ/338671bb-9abd-4f89-954d-050d2902caef.jpg",
+    "title": "Safer School Zones",
+    "category": "Awareness campaign",
+    "alt": "Colorful SAFER School Zones campaign title and illustrated school",
+    "width": 3456,
+    "height": 3456
+  },
+  {
+    "file": "sk-resignation/Artboard 1 copy 4@4x.png",
+    "title": "Elected SK officials",
+    "category": "SK advisory",
+    "alt": "Three-step resignation guide for elected SK officials",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "sk-resignation/Artboard 1 copy 5@4x.png",
+    "title": "Appointed SK officials",
+    "category": "SK advisory",
+    "alt": "Three-step resignation guide for appointed SK secretaries and treasurers",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "sk-resignation/Artboard 1 copy 6@4x.png",
+    "title": "Resignation accepted?",
+    "category": "SK advisory",
+    "alt": "Turnover checklist with a blue exclamation mark",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "sk-resignation/Artboard 1 copy 7@4x.png",
+    "title": "Read the full advisory",
+    "category": "SK advisory",
+    "alt": "SK advisory publication with a QR code for the complete document",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "lcat-vawc/Artboard 1 copy 5@4x (1).png",
+    "title": "Mercedes",
+    "category": "Public information",
+    "alt": "Congratulatory LCAT-VAWC publication featuring the Mercedes municipal seal",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "lcat-vawc/Artboard 1 copy 6@4x.png",
+    "title": "Recognizing local councils",
+    "category": "Public information",
+    "alt": "Congratulatory publication featuring Basud, Jose Panganiban and Daet",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "lcat-vawc/Artboard 1 copy 7@4x.png",
+    "title": "Celebrating local achievements",
+    "category": "Public information",
+    "alt": "Congratulatory publication featuring eight local council seals",
+    "width": 2305,
+    "height": 2305
+  },
+  {
+    "file": "SSZ/26048817-681a-4c1f-9d0e-10d0b89ed0b2.jpg",
+    "title": "Why safer school zones?",
+    "category": "Awareness campaign",
+    "alt": "Blue school-safety information panel over a school photograph",
+    "width": 3457,
+    "height": 3456
+  },
+  {
+    "file": "SSZ/7b877f09-0ff1-4fd8-baa6-5496ddd04654.jpg",
+    "title": "The SAFER framework",
+    "category": "Awareness campaign",
+    "alt": "Survey, Assess, Facilitate, Escalate and Report illustrated as five colorful columns",
+    "width": 3457,
+    "height": 3456
+  },
+  {
+    "file": "SSZ/324db13d-117b-4527-9f21-b52190d11a29.jpg",
+    "title": "Barangay leadership and tanods",
+    "category": "Awareness campaign",
+    "alt": "Red, blue and yellow panels explaining school-safety roles",
+    "width": 3457,
+    "height": 3456
+  },
+  {
+    "file": "SSZ/dcb704b8-062d-4f51-aa89-d51105b89d20.jpg",
+    "title": "Working together",
+    "category": "Awareness campaign",
+    "alt": "School-safety responsibilities shown in four colored panels",
+    "width": 3457,
+    "height": 3456
+  }
+]

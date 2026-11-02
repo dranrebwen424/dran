@@ -1,0 +1,98 @@
+---
+const { contact = false } = Astro.props;
+const instructions = contact ? 'contact-shape-instructions' : 'shape-instructions';
+const shapes = [
+  ['cube', 'Spin the cube'], ['chevrons', 'Spin the chevrons'],
+  ['ring', 'Spin the ring'], ['dots', 'Spin the dotted sphere'],
+  ['cross', 'Spin the cross'], ['arc', 'Spin the open ring'],
+  ['waves', 'Spin the waves'], ['prism', 'Spin the prism'],
+];
+const dots = Array.from({ length: 81 }, (_, index) => ({ x: index % 9 * 10 - 40, y: Math.floor(index / 9) * 10 - 40 }))
+  .filter(({ x, y }) => x * x + y * y < 1800);
+---
+
+<div class:list={['hero-shapes', contact && 'contact-shapes']} data-state="loading" role="group" aria-label={contact ? 'Interactive contact shapes' : 'Interactive geometric shapes'}>
+  <p id={instructions} class="sr-only">Drag a shape to turn and gently move it, or press Enter or Space to spin it. On touch, drag horizontally; swipe vertically to scroll.</p>
+  <canvas class="shapes-canvas" aria-hidden="true"></canvas>
+  {shapes.map(([shape, label]) => (
+    <button class="hero-shape" data-shape={shape} type="button" aria-label={label} aria-describedby={instructions} disabled>
+      <svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="2.8" aria-hidden="true" focusable="false">
+        {shape === 'cube' && <path d="M0-39 37-20 37 22 0 42-37 22-37-20ZM-37-20 0 0 37-20M0 0V42" />}
+        {shape === 'chevrons' && <path d="M-30-18 0-43 30-18M-30 13 0-12 30 13M-30 44 0 19 30 44" stroke-width="8" />}
+        {shape === 'ring' && <circle r="36" stroke-width="7" />}
+        {shape === 'dots' && dots.map(({ x, y }) => <circle cx={x} cy={y} r="1.8" fill="currentColor" stroke="none" />)}
+        {shape === 'cross' && <path d="M-9-38H9V-9H38V9H9V38H-9V9H-38V-9H-9Z" fill="currentColor" stroke="none" />}
+        {shape === 'arc' && <path d="M29-28A40 40 0 1 0 39 7" stroke-width="5" />}
+        {shape === 'waves' && <path d="M-46-10Q-38-24-30-10T2-10T34-10Q42-24 50-10M-46 10Q-38-4-30 10T2 10T34 10Q42-4 50 10" stroke-width="5" />}
+        {shape === 'prism' && <path d="M-16-42H12L31-25V29L14 43H-14L-31 27V-25ZM-31-25H12L31-25M12-25V29L-14 43M12 29H31" />}
+      </svg>
+    </button>
+  ))}
+</div>
+
+<style>
+  .hero-shapes { --shape-scale: .9; position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: clip; }
+  .contact-shapes { --color-text: #fff; --color-text-secondary: #ddd; --color-background: #000; --shape-scroll: 0; --shape-scale: .7; }
+  .contact-shapes [data-shape='chevrons'] { --shape-x: 16%; --shape-y: 18%; }
+  .contact-shapes [data-shape='waves'] { --shape-x: 72%; --shape-y: 12%; }
+  .contact-shapes [data-shape='cross'] { --shape-x: 15%; --shape-y: 79%; }
+  .contact-shapes [data-shape='arc'] { --shape-x: 73%; --shape-y: 84%; }
+  .shapes-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 300ms ease; }
+  .hero-shape {
+    position: absolute; left: var(--shape-x); top: var(--shape-y);
+    width: var(--shape-size); height: var(--shape-size); min-width: 44px; min-height: 44px;
+    transform: translate(-50%, -50%); padding: 0; border: 0; background: transparent;
+    color: var(--color-text); pointer-events: auto; cursor: grab;
+    touch-action: pan-y pinch-zoom; user-select: none;
+  }
+  .hero-shape svg { width: 100%; height: 100%; transform: scale(calc(var(--shape-scale) * var(--shape-entrance-scale, 1))); opacity: var(--shape-opacity); transition: opacity 300ms ease; pointer-events: none; }
+  .hero-shape[data-grabbing] { cursor: grabbing; }
+  .hero-shape:disabled { cursor: default; }
+  .hero-shape:focus-visible { outline-offset: 2px; border-radius: 8px; }
+  [data-state='ready'] .shapes-canvas { opacity: 1; }
+  [data-state='ready'] .hero-shape svg { opacity: 0; }
+  [data-shape='cube'] { --shape-x: 85%; --shape-y: 24%; --shape-size: 88px; --shape-depth: 110; --shape-opacity: .8; }
+  [data-shape='chevrons'] { --shape-x: 20%; --shape-y: 14%; --shape-size: 45px; --shape-depth: -140; --shape-opacity: .6; }
+  [data-shape='ring'] { --shape-x: 11%; --shape-y: 44%; --shape-size: 62px; --shape-depth: 40; --shape-opacity: .75; }
+  [data-shape='dots'] { --shape-x: 84%; --shape-y: 67%; --shape-size: 91px; --shape-depth: -230; --shape-opacity: .55; }
+  [data-shape='cross'] { --shape-x: 22%; --shape-y: 80%; --shape-size: 38px; --shape-depth: 90; --shape-opacity: .65; }
+  [data-shape='arc'] { --shape-x: 69%; --shape-y: 78%; --shape-size: 76px; --shape-depth: -50; --shape-opacity: .65; }
+  [data-shape='waves'] { --shape-x: 75%; --shape-y: 9%; --shape-size: 76px; --shape-depth: -190; --shape-opacity: .45; }
+  [data-shape='prism'] { --shape-x: 8%; --shape-y: 75%; --shape-size: 57px; --shape-depth: -110; --shape-opacity: .5; }
+  .hero-shapes:not(.contact-shapes) { --shape-float: .45; --shape-scroll: 0; }
+  .hero-shapes:not(.contact-shapes) [data-shape='cube'] { --shape-x: 55.5%; --shape-y: 18%; --shape-size: 44px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='chevrons'] { --shape-x: 5.2%; --shape-y: 13%; --shape-size: 32px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='ring'] { --shape-x: 4%; --shape-y: 46%; --shape-size: 40px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='dots'] { --shape-x: 95%; --shape-y: 65%; --shape-size: 56px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='cross'] { --shape-x: 33%; --shape-y: 91%; --shape-size: 28px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='arc'] { --shape-x: 66%; --shape-y: 92%; --shape-size: 54px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='waves'] { --shape-x: 75%; --shape-y: 4%; --shape-size: 54px; }
+  .hero-shapes:not(.contact-shapes) [data-shape='prism'] { --shape-x: 6%; --shape-y: 84%; --shape-size: 44px; }
+  @media (min-width: 768px) and (max-width: 1099px) {
+    .hero-shapes:not(.contact-shapes) [data-shape='cube'] { --shape-x: 58%; --shape-y: 82%; }
+    .hero-shapes:not(.contact-shapes) [data-shape='ring'] { --shape-x: 3%; --shape-y: 30%; --shape-size: 32px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='cross'] { --shape-x: 24%; --shape-y: 89%; }
+    .hero-shapes:not(.contact-shapes) [data-shape='arc'] { --shape-x: 43%; --shape-y: 95%; }
+  }
+  @media (max-width: 767px) {
+    .contact-shapes { --shape-scale: .6; }
+    .contact-shapes [data-shape='ring'] { --shape-y: 47%; }
+    .contact-shapes [data-shape='dots'] { --shape-y: 60%; }
+    [data-shape='cube'] { --shape-x: 85%; --shape-y: 6.5%; --shape-size: 48px; }
+    [data-shape='chevrons'] { --shape-x: 13%; --shape-y: 7.5%; --shape-size: 28px; }
+    [data-shape='ring'] { --shape-x: 10%; --shape-y: 61%; --shape-size: 33px; }
+    [data-shape='dots'] { --shape-x: 90%; --shape-y: 69%; --shape-size: 48px; }
+    [data-shape='cross'] { --shape-x: 18%; --shape-y: 78%; --shape-size: 29px; }
+    [data-shape='arc'] { --shape-x: 70%; --shape-y: 79%; --shape-size: 48px; }
+    [data-shape='waves'], [data-shape='prism'] { display: none; }
+    .hero-shapes:not(.contact-shapes) [data-shape='cube'] { --shape-x: 90%; --shape-y: 2.5%; --shape-size: 36px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='chevrons'] { --shape-x: 10%; --shape-y: 2.5%; --shape-size: 26px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='ring'] { --shape-x: 7%; --shape-y: 45%; --shape-size: 30px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='dots'] { --shape-x: 91%; --shape-y: 66%; --shape-size: 44px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='cross'] { --shape-x: 16%; --shape-y: 92%; --shape-size: 26px; }
+    .hero-shapes:not(.contact-shapes) [data-shape='arc'] { --shape-x: 77%; --shape-y: 95%; --shape-size: 42px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shapes-canvas, .hero-shape svg { transition: none; }
+  }
+</style>

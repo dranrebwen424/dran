@@ -1,0 +1,28 @@
+---
+import DocumentsLayout from '../layouts/DocumentsLayout.astro';
+import { resume } from '../data/documents.json';
+---
+
+<DocumentsLayout title="Resume" description="Resume of Dranreb Wen Balangbang." active="resume">
+  <div class="resume-toolbar">
+    <a class="original-link" href={`${resume.file}?v=${resume.version}`} target="_blank" rel="noopener">Open PDF <span class="sr-only">in a new tab</span><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="resume-pages">
+    {resume.pages.map((page, index) => (
+      <figure>
+        <img src={page.src} width={page.width} height={page.height} alt={`Resume of Dranreb Wen Balangbang, page ${index + 1} of ${resume.pages.length}`} loading={index === 0 ? 'eager' : 'lazy'} />
+        <figcaption>Page {index + 1} of {resume.pages.length}</figcaption>
+      </figure>
+    ))}
+  </div>
+</DocumentsLayout>
+
+<style>
+  .resume-toolbar { margin-bottom: 24px; }
+  .original-link { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 44px; padding: 12px 20px; background: var(--color-inverse); color: var(--color-on-inverse); font-size: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; }
+  .original-link:is(:hover, :focus-visible) { background: var(--color-cta-hover); }
+  .resume-pages { display: grid; gap: 32px; max-width: 900px; }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; height: auto; border: 1px solid var(--color-border); }
+  figcaption { margin-top: 12px; text-align: center; color: var(--color-text-secondary); font-size: 12px; }
+</style>

@@ -1,0 +1,87 @@
+{
+  "certificates": [
+    {
+      "title": "Computer Programmer Internship",
+      "issuer": "DILG Camarines Norte",
+      "date": "August 14, 2026",
+      "file": "/certificate/Artboard 2@4x.png",
+      "preview": "/documents/previews/computer-programmer-internship.webp",
+      "width": 1400,
+      "height": 1987
+    },
+    {
+      "title": "Introduction to Visual Graphic Design",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/Certificate_of_Completion.pdf",
+      "preview": "/documents/previews/visual-graphic-design.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Developing Designs for a Logo",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/Certificate_of_Completion (1).pdf",
+      "preview": "/documents/previews/logo-design.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Developing Designs for Print Media",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/Certificate_of_Completion (2).pdf",
+      "preview": "/documents/previews/print-media.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Developing Designs for User Experience",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/Certificate_of_Completion (3).pdf",
+      "preview": "/documents/previews/user-experience.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Developing Designs for User Interface",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/UI.pdf",
+      "preview": "/documents/previews/user-interface.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Developing Designs for Product Packaging",
+      "issuer": "TESDA Online Program",
+      "date": "May 26, 2025",
+      "file": "/certificate/product-packaging.pdf",
+      "preview": "/documents/previews/product-packaging.webp",
+      "width": 1400,
+      "height": 990
+    },
+    {
+      "title": "Designing Booth and Product/Window Display",
+      "issuer": "TESDA Online Program",
+      "date": "May 27, 2025",
+      "file": "/certificate/Window-Display.pdf",
+      "preview": "/documents/previews/booth-window-display.webp",
+      "width": 1400,
+      "height": 990
+    }
+  ],
+  "resume": {
+    "file": "/resume/resume.pdf",
+    "version": "9cce7229262e",
+    "pages": [
+      {
+        "src": "/documents/previews/resume-9cce7229262e-page-1.webp",
+        "width": 1600,
+        "height": 2263
+      }
+    ]
+  }
+}
